@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QCM Attention – UE 101</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+
+    <!-- Écran d'accueil -->
+    <section id="screen-start" class="card screen">
+      <div class="logo">🎯</div>
+      <h1>QCM Attention</h1>
+      <p class="subtitle">UE 101 · Chapitre 3 : l'attention</p>
+      <ul class="rules">
+        <li>✅ <strong>+1 point</strong> par bonne réponse</li>
+        <li>❌ <strong>−0,5 point</strong> par mauvaise réponse</li>
+        <li>🏅 Des <strong>médailles</strong> à débloquer par paliers de points</li>
+        <li>🎲 <span id="nb-q">20</span> questions (QCM et vrai/faux) tirées au hasard à chaque partie</li>
+      </ul>
+      <div class="medal-legend" id="medal-legend"></div>
+      <p class="seen-box" aria-live="polite"></p>
+      <button id="btn-start" class="btn primary">Commencer</button>
+    </section>
+
+    <!-- Écran de jeu -->
+    <section id="screen-game" class="card screen hidden">
+      <header class="topbar">
+        <div class="progress-text">Question <span id="q-num">1</span>/<span id="q-total">20</span></div>
+        <div class="score-box">Score : <strong id="score">0</strong></div>
+      </header>
+      <div class="progress"><div id="progress-bar"></div></div>
+      <div class="shelf" id="shelf" aria-label="Médailles"></div>
+
+      <p id="q-type" class="q-type"></p>
+      <h2 id="question"></h2>
+      <div id="options" class="options"></div>
+
+      <div id="feedback" class="feedback hidden" role="status">
+        <p id="feedback-title"></p>
+        <p id="feedback-explain"></p>
+      </div>
+      <button id="btn-next" class="btn primary hidden">Suivant →</button>
+    </section>
+
+    <!-- Écran de fin -->
+    <section id="screen-end" class="card screen hidden">
+      <div id="end-medal" class="end-medal"></div>
+      <h2 id="end-title"></h2>
+      <p id="end-score" class="end-score"></p>
+      <p id="end-msg" class="subtitle"></p>
+      <div class="shelf" id="shelf-end"></div>
+      <details id="review" class="review">
+        <summary>📖 Revoir les questions ratées</summary>
+        <div id="review-list"></div>
+      </details>
+      <p class="seen-box" aria-live="polite"></p>
+      <div class="end-actions">
+        <button id="btn-restart" class="btn primary">Rejouer 🔁</button>
+      </div>
+    </section>
+
+    <div id="toast" class="toast hidden" role="alert"></div>
+  </main>
+
+  <script src="questions.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

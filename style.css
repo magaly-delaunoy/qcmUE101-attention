@@ -1,0 +1,183 @@
+:root {
+  --bg: #f3f0ff;
+  --card: #ffffff;
+  --text: #2a2540;
+  --muted: #6b6785;
+  --primary: #6c4ee0;
+  --primary-dark: #5538c4;
+  --good: #1f9d63;
+  --good-bg: #e3f6ec;
+  --bad: #d64545;
+  --bad-bg: #fde8e8;
+  --border: #e2dcf7;
+  --shadow: 0 10px 30px rgba(108, 78, 224, .15);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #17142b;
+    --card: #221e3d;
+    --text: #f1eefc;
+    --muted: #b1abd1;
+    --primary: #9a82ff;
+    --primary-dark: #8068f0;
+    --good: #4ed69b;
+    --good-bg: #17382c;
+    --bad: #ff7b7b;
+    --bad-bg: #3d1f27;
+    --border: #3a3463;
+    --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  background: linear-gradient(160deg, var(--bg), #e4dcff 140%);
+  color: var(--text);
+  line-height: 1.5;
+  display: flex;
+  justify-content: center;
+  padding: 20px 14px 40px;
+}
+
+.app { width: 100%; max-width: 680px; position: relative; }
+
+.card {
+  background: var(--card);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+  padding: 26px 22px;
+}
+
+.screen { animation: pop .35s ease; }
+@keyframes pop { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+.hidden { display: none !important; }
+
+h1 { font-size: 1.6rem; margin: 6px 0; text-align: center; }
+h2 { font-size: 1.2rem; margin: 10px 0 14px; line-height: 1.4; }
+.subtitle { text-align: center; color: var(--muted); margin: 4px 0 18px; }
+.logo { font-size: 3.4rem; text-align: center; }
+
+.rules { list-style: none; padding: 0; margin: 0 0 18px; display: grid; gap: 8px; }
+.rules li { background: var(--bg); border-radius: 12px; padding: 10px 14px; }
+
+.medal-legend { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 22px; }
+.chip {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: .9rem;
+  background: var(--card);
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-radius: 14px;
+  padding: 14px 18px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .1s, background .2s;
+}
+.btn.primary { background: var(--primary); color: #fff; }
+.btn.primary:hover { background: var(--primary-dark); }
+.btn:active { transform: scale(.98); }
+.btn:focus-visible, .option:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+
+/* Barre du haut */
+.topbar { display: flex; justify-content: space-between; align-items: center; font-weight: 600; }
+.score-box strong { font-size: 1.25rem; color: var(--primary); }
+.score-box.bump strong { animation: bump .4s; }
+@keyframes bump { 50% { transform: scale(1.4); } }
+
+.progress { height: 8px; background: var(--bg); border-radius: 99px; overflow: hidden; margin: 10px 0 12px; }
+#progress-bar { height: 100%; width: 0; background: linear-gradient(90deg, var(--primary), #c07cff); transition: width .4s; }
+
+/* Médailles */
+.shelf { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; min-height: 40px; }
+.medal {
+  display: flex; align-items: center; gap: 4px;
+  padding: 3px 10px; border-radius: 999px;
+  border: 1px dashed var(--border);
+  font-size: .85rem; color: var(--muted);
+  filter: grayscale(1); opacity: .55;
+  transition: all .4s;
+}
+.medal .ico { font-size: 1.2rem; }
+.medal.on { filter: none; opacity: 1; border-style: solid; color: var(--text); background: var(--bg); }
+.medal.just { animation: bump .6s; }
+
+/* Options */
+.options { display: grid; gap: 10px; }
+.option {
+  text-align: left;
+  background: var(--card);
+  color: var(--text);
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  padding: 13px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color .15s, background .15s, transform .1s;
+}
+.option:hover:not(:disabled) { border-color: var(--primary); transform: translateX(3px); }
+.option:disabled { cursor: default; }
+.option.correct { border-color: var(--good); background: var(--good-bg); }
+.option.wrong { border-color: var(--bad); background: var(--bad-bg); animation: shake .35s; }
+@keyframes shake { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+
+.feedback { margin: 16px 0 12px; padding: 14px 16px; border-radius: 14px; animation: pop .3s; }
+.feedback.ok { background: var(--good-bg); border-left: 5px solid var(--good); }
+.feedback.ko { background: var(--bad-bg); border-left: 5px solid var(--bad); }
+.feedback p { margin: 0; }
+#feedback-title { font-weight: 700; margin-bottom: 4px; }
+
+/* Fin */
+.end-medal { font-size: 5rem; text-align: center; animation: bump .8s; }
+.end-score { text-align: center; font-size: 2rem; font-weight: 800; color: var(--primary); margin: 0; }
+#end-title { text-align: center; margin-top: 4px; }
+.review { margin: 18px 0; }
+.review summary { cursor: pointer; font-weight: 600; padding: 8px 0; }
+.review-item { border-left: 4px solid var(--bad); background: var(--bad-bg); padding: 10px 12px; border-radius: 10px; margin: 10px 0; }
+.review-item p { margin: 3px 0; }
+.review-item .good-ans { color: var(--good); font-weight: 600; }
+.end-actions { margin-top: 10px; }
+
+/* Toast médaille */
+.toast {
+  position: fixed; left: 50%; top: 18px; transform: translateX(-50%);
+  background: var(--primary); color: #fff;
+  padding: 14px 22px; border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .3);
+  font-weight: 700; text-align: center; z-index: 10;
+  animation: drop .5s;
+  max-width: 92vw;
+}
+@keyframes drop { from { transform: translate(-50%, -80px); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
+
+@media (max-width: 480px) {
+  .card { padding: 20px 16px; }
+  h1 { font-size: 1.35rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* Compteur de questions vues */
+.seen-box { text-align: center; color: var(--muted); font-size: .9rem; margin: 0 0 14px; display: flex; flex-wrap: wrap; gap: 6px 12px; justify-content: center; align-items: center; }
+.link-btn { background: none; border: 0; color: var(--primary); text-decoration: underline; cursor: pointer; font-size: .9rem; padding: 2px; }
+.link-btn:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+
+/* Type de question + boutons vrai/faux */
+.q-type { display: inline-block; margin: 16px 0 0; padding: 3px 12px; border-radius: 999px; background: var(--bg); color: var(--primary); font-size: .85rem; font-weight: 700; }
+.options.vf { grid-template-columns: 1fr 1fr; }
+.options.vf .option { text-align: center; font-weight: 700; font-size: 1.1rem; padding: 16px 10px; }
+.options.vf .option:hover:not(:disabled) { transform: translateY(-2px); }
